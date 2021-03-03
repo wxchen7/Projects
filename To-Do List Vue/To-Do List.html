@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="To-Do List.css">
+
+</head>
+<body>
+<!--主体-->
+<section id="todoapp">
+    <!--输入框-->
+    <header class="header">
+        <h1>To-Do List</h1>
+        <input type="text" class="new-todo" v-model= "inputValue" @keyup.enter="add" autofocus="autofocus" autocomplete="off" placeholder="请输入要完成的项目 按回车完成输入">
+    </header>
+    <!--列表-->
+    <section class="main">
+        <ul class="todo-list">
+            <li class="todo" v-for="(item, index) in list">
+                <div class="view">
+                    <span class="index">{{ index + 1 }}.</span> <label> {{item}}</label>
+                    <button class="destroy" @click="remove(index)"></button>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <footer class="footer" v-if="list.length > 0">
+        <span class="todo-count">
+            <strong>{{ list.length }}</strong>
+            items left
+        </span>
+        <button class="clear-completed" @click="clear">Clear</button>
+
+</section>
+
+<script src="vue.js"></script>
+<script>
+    let app = new Vue({
+        el: '#todoapp',
+        data: {
+            list: ['Coding', 'Sleeping', 'Studying'],
+            inputValue: ''
+        },
+        methods: {
+            add: function() {
+                this.list.push(this.inputValue)
+                this.inputValue = []
+            },
+            remove: function(index) {
+                this.list.splice(index, 1)
+            },
+            clear: function() {
+                this.list = []
+            }
+        }
+    })
+</script>
+</body>
+</html>
